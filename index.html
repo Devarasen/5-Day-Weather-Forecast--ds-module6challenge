@@ -9,16 +9,16 @@
 </head>
 
 <body>
-    
+
     <header class="p-4" style="background-image: linear-gradient(to right, #5549c7, #060041);">
         <h1>Weather Dashboard</h1>
     </header>
 
-    <main class="container-fluid m-0 p-1">
+    <main class="container-fluid m-0 p-0">
 
-        <div class="row d-flex justify-content-between">
+        <div class="row d-flex justify-content-start page-info">
 
-            <aside class="col-md-3 pt-4">
+            <aside class="col-md-3 pt-4 pl-3">
                 <form id="search-form" class="mb-5">
                     <div class="input-group col-md-3 pb-4">
                         <input id="search-input" type="text" class="form-control" placeholder="Type location name">
@@ -28,7 +28,7 @@
                 </form>
                 <hr/>                
                 <div class="mt-5">
-                    <h2 class="pb-3">Recent Searches</h2>
+                    <h2 class="pb-3 pl-3">Recent Searches</h2>
                     <ul id="recent-searches-list"></ul>
                 </div>    
             </aside>
