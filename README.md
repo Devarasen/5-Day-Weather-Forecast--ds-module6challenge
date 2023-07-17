@@ -14,7 +14,7 @@ It saves the last 10 recent searches so you can revisit past searches
 
 ![HomePageEmpty](./assets/images/Home%20Page%20Empty.PNG)
 
-![HomePage]()
+![Working Page](./assets/images/Working%20Page.PNG)
 
 ## Usage
 
