@@ -14,3 +14,16 @@ header {
     margin: 0;
     padding: 0;
 }
+
+#forecast-info {
+    background-color: rgb(94, 94, 165);
+}
+
+#forecast-info h2 {
+    color: white;
+}
+
+#current-info {
+    background-image: linear-gradient(to right, #ffffff, #cbc5ff);
+}
+
