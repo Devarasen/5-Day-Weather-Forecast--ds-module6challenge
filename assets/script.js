@@ -69,7 +69,9 @@ function displaySuggestions() {
             locationText = option.name + ", " + option.state + ", " + option.country;
         }
 
-        let button = $('<button></button>').text(locationText);
+        let button = $('<button></button>')
+            .text(locationText)
+            .addClass("btn btn-primary btn-block m-1");
         button.on('click', function () {
             $('#search-input').val(locationText);
             $("#city-name").text(locationText);
