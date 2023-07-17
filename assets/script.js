@@ -22,7 +22,7 @@ function addRecentSearch(locationObj) {
     const isAlreadyAdded = recentSearches.some(item => item.name === locationObj.name && item.country === locationObj.country);
     if (!isAlreadyAdded) {
         recentSearches.push(locationObj);
-        if (recentSearches.length > 5) {
+        if (recentSearches.length > 10) {
             recentSearches.shift();
         }
       
