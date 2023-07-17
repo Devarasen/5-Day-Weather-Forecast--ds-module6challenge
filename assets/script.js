@@ -117,7 +117,7 @@ function displayCurrentWeather(data) {
 
     const date = dayjs(dateTimeString);
     
-    const formattedDate = date.format("MMMM D, YYYY h:mm A");
+    const formattedDate = date.format("MMMM D, YYYY");
     
     $("#weather-icon").attr("src", "http://openweathermap.org/img/w/" + weatherIcon + ".png").css("display", "block");
     $('#current-date').text(formattedDate)
