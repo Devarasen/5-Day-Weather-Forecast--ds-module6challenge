@@ -106,7 +106,7 @@ function getWeatherData(lat,lon) {
 }
 
 
-//Renders current weather in
+//Renders current weather information
 function displayCurrentWeather(data) {
     const currentInfo = data.list[0];    
     const weatherIcon = currentInfo.weather[0].icon;
@@ -137,7 +137,6 @@ function displayFutureWeather(data) {
     let currentDate = dayjs();
 
     forecastData.forEach(item => {
-        // Increment the date by 24 hours for each forecast entry
         currentDate = currentDate.add(24, 'hour');
 
         const weatherIcon = item.weather[0].icon;
