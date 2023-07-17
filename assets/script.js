@@ -104,7 +104,7 @@ function getWeatherData(lat,lon) {
 }
 
 
-//Renders current weather information
+//Renders current weather in
 function displayCurrentWeather(data) {
     const currentInfo = data.list[0];    
     const weatherIcon = currentInfo.weather[0].icon;
