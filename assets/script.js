@@ -19,7 +19,7 @@ function searchBarInput(event) {
     var locationName = $('#search-input').val();
     if (locationName.trim().length > 0) {
         locationName = locationName.trim().replaceAll(" ", "%20");
-        var apiURLGeo = 'http://api.openweathermap.org/geo/1.0/direct?q=' + locationName + '&limit=5' + '&appid=' + apiKey + '&units=metric';
+        var apiURLGeo = 'https://api.openweathermap.org/geo/1.0/direct?q=' + locationName + '&limit=5' + '&appid=' + apiKey + '&units=metric';
         geoAPILookUp(apiURLGeo);
         console.log(apiURLGeo);
     } else {
