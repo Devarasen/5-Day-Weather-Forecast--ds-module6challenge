@@ -117,7 +117,7 @@ function displayCurrentWeather(data) {
 
     const date = dayjs(dateTimeString);
     
-    const formattedDate = date.format("MMMM D, YYYY");
+    const formattedDate = date.format("MMMM D, YYYY HH:mm A");
     
     $("#weather-icon").attr("src", "http://openweathermap.org/img/w/" + weatherIcon + ".png").css("display", "block");
     $('#current-date').text(formattedDate)
@@ -129,5 +129,36 @@ function displayCurrentWeather(data) {
 
 //Forecast for next 5 days
 function displayFutureWeather(data) {
-    console.log(data);
+    const forecastList = $("#forecast-cards");
+    forecastList.empty();
+    
+    const forecastData = data.list.slice(1, 6); 
+    
+    let currentDate = dayjs();
+
+    forecastData.forEach(item => {
+        // Increment the date by 24 hours for each forecast entry
+        currentDate = currentDate.add(24, 'hour');
+
+        const weatherIcon = item.weather[0].icon;
+        const temperature = Math.round(parseInt(item.main.temp) - 273.15);
+        const humidity = item.main.humidity;
+        const windSpeed = item.wind.speed;
+
+        const date = dayjs(item.dt_txt);    
+        const formattedDate = currentDate.format("MMMM D, YYYY");
+
+        const cardContainer = $('<div></div>').addClass('col-md-2 card m-2 p-2');
+        const cardBody = $('<div></div>').addClass('card-body');
+
+        const dateElement = $('<h6></h6>').text(formattedDate);
+        const weatherIconElement = $('<img>').attr("src", "http://openweathermap.org/img/w/" + weatherIcon + ".png").css("display", "block");
+        const temperatureElement = $('<p></p>').text("Temperature: " + temperature + "°C");
+        const humidityElement = $('<p></p>').text("Humidity: " + humidity + "%");
+        const windSpeedElement = $('<p></p>').text("Wind Speed: " + windSpeed + " km/h");
+
+        cardBody.append(dateElement, weatherIconElement, temperatureElement, humidityElement, windSpeedElement);
+        cardContainer.append(cardBody);
+        forecastList.append(cardContainer);
+    });
 }
