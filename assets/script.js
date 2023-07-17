@@ -5,8 +5,14 @@ let lat;
 let lon;
 
 
-$('#search-button').on('click', function (event) {
+$('#search-button').click(function (event) {
     searchBarInput(event);
+});
+
+$("#search-input").on("keypress", function (event) {
+    if (event.key === "Enter") {
+      $("#search-button").click();
+    }
 });
 
 
@@ -36,7 +42,11 @@ function geoAPILookUp(apiURLGeo) {
                     locationStr = item.name + ", " + item.state + ", " + item.country;
                 }
                 suggestions.push(locationStr);
+                console.log(suggestions);
             });
+            if (suggestions.length < 1) {
+                alert("No location. Please try search again");
+            }
             displaySuggestions();
         })
         .catch(function(error) {
@@ -64,7 +74,7 @@ function clearSuggestions() {
 }
 
 
-function getWeatherData(locationName) {
+function getWeatherData(lat,lon) {
     const apiURL = 'https://api.openweathermap.org/data/2.5/forecast?lat='+ lat +'&lon='+ lon +'&appid='+ apiKey;
 }
 
