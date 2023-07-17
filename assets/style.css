@@ -19,8 +19,7 @@ header {
     border-radius: 25px;
     border: 5px solid darkblue;
 }
-    
-
+ 
 #forecast-info {
     background-color: rgb(94, 94, 165);
     border-radius: 25px;
@@ -30,3 +29,4 @@ header {
 #forecast-info h2 {
     color: white;
 }
+
