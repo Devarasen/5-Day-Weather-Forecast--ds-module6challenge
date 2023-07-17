@@ -4,6 +4,61 @@ let suggestions = [];
 
 
 
+// Function to get recent searches from local storage
+function getRecentSearches() {
+    const recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
+    return recentSearches;
+}
+
+// Function to save recent searches to local storage
+function saveRecentSearches(recentSearches) {
+    localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+}
+
+// Function to add a recent search
+function addRecentSearch(locationObj) {
+    const recentSearches = getRecentSearches();
+
+    const isAlreadyAdded = recentSearches.some(item => item.name === locationObj.name && item.country === locationObj.country);
+    if (!isAlreadyAdded) {
+        recentSearches.push(locationObj);
+        if (recentSearches.length > 5) {
+            recentSearches.shift();
+        }
+      
+        saveRecentSearches(recentSearches);
+        displayRecentSearches();
+    }
+}
+
+// Function to render list on Recent Searches List
+function displayRecentSearches() {
+    const recentSearches = getRecentSearches();
+    const recentSearchesList = $('#recent-searches-list');
+    recentSearchesList.empty();
+  
+    recentSearches.forEach(item => {
+      const listItem = $('<p></p>');
+      const button = $('<button></button>')
+        .text(item.name + ', ' + item.country)
+        .addClass('btn btn-secondary btn-block');
+        
+      button.on('click', function () {
+        $('#search-input').val(item.name + ', ' + item.country);
+        $("#city-name").text(item.name + ', ' + item.country);
+        clearSuggestions();
+        getWeatherData(item.lat, item.lon);
+      });
+  
+      listItem.append(button);
+      recentSearchesList.append(listItem);
+    });
+}
+  
+// Call displayRecentSearches
+displayRecentSearches();
+
+
 //Event Handlers for search 
 $("#search-form").on("submit", function (event) {
     event.preventDefault();
@@ -77,6 +132,7 @@ function displaySuggestions() {
             $("#city-name").text(locationText);
             clearSuggestions();
             getWeatherData(option.lat, option.lon);
+            addRecentSearch(option); 
         });
         listItem.append(button);
         suggestionList.append(listItem);
@@ -129,12 +185,13 @@ function displayCurrentWeather(data) {
 
 //Forecast for next 5 days
 function displayFutureWeather(data) {
+    console.log('Forecast API response:', data);
     const forecastList = $("#forecast-cards");
     forecastList.empty();
     
     const forecastData = data.list.slice(1, 6); 
     
-    let currentDate = dayjs();
+    let currentDate = dayjs(data.list[0].dt_txt);   
 
     forecastData.forEach(item => {
         currentDate = currentDate.add(24, 'hour');
@@ -143,8 +200,7 @@ function displayFutureWeather(data) {
         const temperature = Math.round(parseInt(item.main.temp) - 273.15);
         const humidity = item.main.humidity;
         const windSpeed = item.wind.speed;
-
-        const date = dayjs(item.dt_txt);    
+ 
         const formattedDate = currentDate.format("MMMM D, YYYY");
 
         const cardContainer = $('<div></div>').addClass('col-md-2 card m-2 p-2');
